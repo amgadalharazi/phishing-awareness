@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="grid" style="margin-bottom:20px;">
+  <div class="card stat"><div class="num">{{ targets|length }}</div><div class="label">Targets</div></div>
+  <div class="card stat"><div class="num">{{ clicked }}</div><div class="label">Clicked</div></div>
+  <div class="card stat"><div class="num">{{ submitted }}</div><div class="label">Submitted</div></div>
+  <div class="card stat"><div class="num">{{ campaign.status }}</div><div class="label">Status</div></div>
+</div>
+
+{% if campaign.status == 'draft' %}
+<form method="post" action="{{ url_for('send_campaign', campaign_id=campaign.id) }}">
+  <button type="submit">Send {{ targets|length }} emails now</button>
+</form>
+{% endif %}
+
+<div class="section-title">Recipients</div>
+<div class="card">
+  <table>
+    <tr><th>Name</th><th>Email</th><th>Sent</th><th>Clicked</th><th>Submitted</th></tr>
+    {% for t in targets %}
+    <tr>
+      <td>{{ t.name or '—' }}</td>
+      <td>{{ t.email }}</td>
+      <td class="muted">{{ t.sent_at or '—' }}</td>
+      <td class="muted">{{ t.clicked_at or '—' }}</td>
+      <td class="muted">{{ t.submitted_at or '—' }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phishing simulation</title>
+<style>
+  body { font-family: -apple-system, "Segoe UI", sans-serif; background:#0f1419; color:#e7ecf2;
+         display:flex; align-items:center; justify-content:center; min-height:100vh; margin:0; padding:20px; }
+  .box { background:#161d27; border:1px solid #26313f; padding:32px; border-radius:10px; max-width:480px; }
+  h2 { margin-top:0; color:#f2a93b; }
+  ul { padding-left:20px; }
+  li { margin-bottom:8px; color:#c3ccd6; }
+  .note { color:#8b97a5; font-size:13px; margin-top:18px; }
+</style></head>
+<body>
+  <div class="box">
+    <h2>⚠ This was a simulated phishing email</h2>
+    <p>{{ note }}</p>
+    {% if red_flags %}
+    <p><strong>What gave it away:</strong></p>
+    <ul>
+      {% for flag in red_flags %}<li>{{ flag }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+    <p class="note">No password was recorded — this page is part of your organization's security-awareness training. If you have questions, contact your security team.</p>
+  </div>
+</body></html>

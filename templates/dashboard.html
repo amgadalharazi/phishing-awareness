@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="grid">
+  <div class="card stat"><div class="num">{{ campaign_count }}</div><div class="label">Campaigns</div></div>
+  <div class="card stat"><div class="num">{{ sent_count }}</div><div class="label">Emails sent</div></div>
+  <div class="card stat"><div class="num">{{ click_rate }}%</div><div class="label">Click rate</div></div>
+  <div class="card stat"><div class="num">{{ submit_rate }}%</div><div class="label">Submitted "credentials"</div></div>
+</div>
+
+<div class="section-title">Highest-risk people right now</div>
+<div class="card">
+  {% if top_risk %}
+  <table>
+    <tr><th>Name</th><th>Email</th><th>Score</th><th>Risk</th><th>Sent / Clicked / Submitted</th></tr>
+    {% for u in top_risk %}
+    <tr>
+      <td>{{ u.name or '—' }}</td>
+      <td>{{ u.email }}</td>
+      <td>{{ u.score }}</td>
+      <td><span class="pill {{ u.risk }}">{{ u.risk }}</span></td>
+      <td class="muted">{{ u.sent }} / {{ u.clicked }} / {{ u.submitted }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <p class="muted">No campaigns sent yet. <a href="{{ url_for('new_campaign') }}">Create your first campaign</a>.</p>
+  {% endif %}
+</div>
+
+<div class="section-title">Recent campaigns</div>
+<div class="card">
+  {% if campaigns %}
+  <table>
+    <tr><th>Campaign</th><th>Template</th><th>Status</th><th>Sent</th><th>Clicked</th></tr>
+    {% for c in campaigns %}
+    <tr>
+      <td><a href="{{ url_for('view_campaign', campaign_id=c.id) }}">{{ c.name }}</a></td>
+      <td class="muted">{{ c.template_name }}</td>
+      <td><span class="pill status">{{ c.status }}</span></td>
+      <td>{{ c.sent }}</td>
+      <td>{{ c.clicked }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <p class="muted">Nothing here yet.</p>
+  {% endif %}
+</div>
+{% endblock %}

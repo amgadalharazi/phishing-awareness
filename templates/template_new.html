@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card" style="max-width:640px;">
+  <form method="post">
+    <label>Template name</label>
+    <input type="text" name="name" required placeholder="e.g. Password Expiry Notice">
+
+    <label>Email subject</label>
+    <input type="text" name="subject" required>
+
+    <label>Difficulty</label>
+    <select name="difficulty">
+      <option>Easy</option><option selected>Medium</option><option>Hard</option>
+    </select>
+
+    <label>Email body (HTML)</label>
+    <textarea name="body_html" required placeholder="Use {{ '{{name}}' }} and {{ '{{tracking_link}}' }} as placeholders"></textarea>
+    <p class="muted" style="font-size:12px;">
+      Use <code class="tag">{{ '{{name}}' }}</code> for the recipient's name and
+      <code class="tag">{{ '{{tracking_link}}' }}</code> where the phishing link should go.
+    </p>
+
+    <label>Red flags to reveal after someone clicks (one per line)</label>
+    <textarea name="red_flags" placeholder="Urgent tone, mismatched sender domain, ..."></textarea>
+
+    <button type="submit" style="margin-top:18px;">Save template</button>
+  </form>
+</div>
+{% endblock %}

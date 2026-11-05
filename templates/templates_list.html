@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<p><a href="{{ url_for('new_template') }}" class="btn">+ New template</a></p>
+<div class="card">
+  <table>
+    <tr><th>Name</th><th>Subject</th><th>Difficulty</th><th>Created</th></tr>
+    {% for t in templates %}
+    <tr>
+      <td>{{ t.name }}</td>
+      <td class="muted">{{ t.subject }}</td>
+      <td>{{ t.difficulty }}</td>
+      <td class="muted">{{ t.created_at }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

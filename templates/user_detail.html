@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="grid" style="margin-bottom:20px;">
+  <div class="card stat"><div class="num">{{ u.score }}</div><div class="label">Awareness score</div></div>
+  <div class="card stat"><div class="num"><span class="pill {{ u.risk }}">{{ u.risk }}</span></div><div class="label">Risk level</div></div>
+  <div class="card stat"><div class="num">{{ u.sent }}</div><div class="label">Campaigns sent</div></div>
+  <div class="card stat"><div class="num">{{ u.clicked }} / {{ u.submitted }}</div><div class="label">Clicked / submitted</div></div>
+</div>
+
+<div class="section-title">Recommendations</div>
+<div class="card">
+  <ul>{% for r in recs %}<li style="margin-bottom:8px;">{{ r }}</li>{% endfor %}</ul>
+</div>
+
+<div class="section-title">Campaign history</div>
+<div class="card">
+  <table>
+    <tr><th>Campaign</th><th>Sent</th><th>Clicked</th><th>Submitted</th></tr>
+    {% for h in history %}
+    <tr>
+      <td>{{ h.campaign_name }}</td>
+      <td class="muted">{{ h.sent_at }}</td>
+      <td class="muted">{{ h.clicked_at or '—' }}</td>
+      <td class="muted">{{ h.submitted_at or '—' }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

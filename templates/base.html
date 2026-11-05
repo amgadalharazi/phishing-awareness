@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ title }} · Phishing Awareness</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="shell">
+  {% if session.get('admin') %}
+  <nav class="side">
+    <div class="brand">Phish<span>Aware</span></div>
+    <a href="{{ url_for('dashboard') }}" class="{{ 'active' if active=='dashboard' else '' }}">Dashboard</a>
+    <a href="{{ url_for('list_templates') }}" class="{{ 'active' if active=='templates' else '' }}">Email templates</a>
+    <a href="{{ url_for('list_campaigns') }}" class="{{ 'active' if active=='campaigns' else '' }}">Campaigns</a>
+    <a href="{{ url_for('list_users') }}" class="{{ 'active' if active=='users' else '' }}">People &amp; scores</a>
+    <a href="{{ url_for('logout') }}" style="margin-top:16px;">Log out</a>
+  </nav>
+  {% endif %}
+  <main>
+    <div class="topbar">
+      <h1>{{ title }}</h1>
+      {% if session.get('admin') %}
+        <span class="badge {{ 'test' if test_mode else 'live' }}">
+          {{ 'Test mode — emails are logged, not sent' if test_mode else 'Live — sending via ' + smtp_host }}
+        </span>
+      {% endif %}
+    </div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+        <div class="flash {{ 'err' if category=='error' else 'ok' }}">{{ message }}</div>
+      {% endfor %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+</div>
+</body>
+</html>
