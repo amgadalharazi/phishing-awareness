@@ -3,7 +3,7 @@
 import os
 import sqlite3
 
-from flask import g
+from flask import g # g stands for "global" and is used to store data during a request context
 
 import config
 
